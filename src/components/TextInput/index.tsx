@@ -22,6 +22,7 @@ export interface CustomTextInputProps extends NativeInputProps {
   textStyles?: StyleProp<TextStyle>;
   backgroundColor?: string;
   placeholder?: string;
+  focusColor?: string;
 }
 
 const TextInput: React.FC<CustomTextInputProps> = ({
@@ -36,6 +37,7 @@ const TextInput: React.FC<CustomTextInputProps> = ({
   leading,
   trailing,
   textStyles,
+  focusColor = colors.SELECTED_OPTION_COLOR,
   ...rest
 }) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -101,6 +103,9 @@ const TextInput: React.FC<CustomTextInputProps> = ({
           pointerEvents="none"
           style={{
             backgroundColor: labelActive ? "#fff" : "transparent",
+            borderColor: isFocused
+              ? focusColor
+              : colors.DEFAULT_BUTTON_DARK_GRAY,
             position: "absolute",
             top: floatingLabelAnim,
             left: leading ? 36 : 20,
@@ -114,7 +119,7 @@ const TextInput: React.FC<CustomTextInputProps> = ({
             style={[
               labelStyles,
               {
-                color: colors.textLightGray,
+                color: isFocused ? focusColor : colors.textLightGray,
               },
             ]}
           >

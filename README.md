@@ -37,14 +37,14 @@ Default: "outlined"\
 Element placed before the text input.\
 Type: React.ReactNode\
 Optional: Yes\
-Example: `leading = {() => <Icon name="check" color={'red'} size={18} />}`
+Example: `leading = {() => return <Icon name="check" color={'red'} size={18} />}`
 <br />
 <br />
 `trailing`\
 Element placed before the text input.\
 Type: React.ReactNode\
 Optional: Yes\
-Example: `trailing = {() => <Icon name="check" color={'red'} size={18} />}`\
+Example: `trailing = {() => return  <Icon name="check" color={'red'} size={18} />}`\
 <br />
 `labelStyles`\
 Style to give the label.\
