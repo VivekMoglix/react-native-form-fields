@@ -85,7 +85,7 @@ const TextInput: React.FC<CustomTextInputProps> = ({
             backgroundColor: isFocused ? "#fff" : "transparent",
             position: "absolute",
             top: floatingLabelAnim,
-            left: leading ? 30 : 20,
+            left: leading ? 36 : 20,
             zIndex: 2,
             paddingLeft: 4,
             paddingRight: 8,
@@ -110,7 +110,7 @@ const TextInput: React.FC<CustomTextInputProps> = ({
           {
             flexDirection: "row",
             alignItems: "center",
-            paddingHorizontal: 4,
+            paddingLeft: 4,
             paddingVertical: 8,
             borderRadius:
               variant === "filled" || variant === "outlined" ? 4 : 0,
@@ -120,6 +120,7 @@ const TextInput: React.FC<CustomTextInputProps> = ({
             borderWidth: variant === "outlined" ? 1 : 0,
             borderBottomWidth:
               variant === "standard" ? 1 : variant === "outlined" ? 1 : 0,
+            paddingRight: trailing && 8,
           },
           inputContainerStyles,
         ]}
