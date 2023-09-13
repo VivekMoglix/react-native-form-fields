@@ -16,7 +16,7 @@ export interface CustomTextInputProps extends NativeInputProps {
   label?: string;
   variant?: "standard" | "outlined" | "filled";
   labelStyles?: StyleProp<TextStyle>;
-  inputContainerStyles?: StyleProp<ViewStyle>;
+  containerStyles?: StyleProp<ViewStyle>;
   leading?: any;
   trailing?: any;
   textStyles?: StyleProp<TextStyle>;
@@ -32,57 +32,75 @@ const TextInput: React.FC<CustomTextInputProps> = ({
   placeholderTextColor = "#C6C7CC",
   variant = "outlined",
   backgroundColor = "#fff",
-  inputContainerStyles,
+  containerStyles,
   leading,
   trailing,
   textStyles,
   ...rest
 }) => {
   const [isFocused, setIsFocused] = useState(false);
+  const [labelActive, setLabelActive] = useState(false);
+  const { value } = { ...rest };
 
-  const floatingLabelAnim = new Animated.Value(16);
+  const floatingLabelAnim = new Animated.Value(10);
 
   useEffect(() => {
-    const { value } = { ...rest };
     if (value && value?.length > 0) {
-      setIsFocused(true);
+      setLabelActive(true);
     }
   }, []);
 
   useEffect(() => {
-    isFocused
+    labelActive
       ? Animated.timing(floatingLabelAnim, {
-          toValue: -5,
-          duration: 200,
+          toValue: -10,
+          duration: 100,
           useNativeDriver: false,
         }).start()
       : Animated.timing(floatingLabelAnim, {
-          toValue: 16,
-          duration: 250,
+          toValue: 10,
+          duration: 0,
           useNativeDriver: false,
         }).start();
-  }, [isFocused]);
+  }, [labelActive]);
 
   const handleFocus = () => {
+    setLabelActive(true);
     setIsFocused(true);
   };
 
   const handleBlur = () => {
-    const { value } = { ...rest };
-    if (value && value.length > 0) {
-      return;
-    } else {
-      setIsFocused(false);
+    setIsFocused(false);
+    if (!value) {
+      setLabelActive(false);
     }
   };
 
   return (
-    <View style={{ position: "relative" }}>
+    <View
+      style={[
+        {
+          flexDirection: "row",
+          alignItems: "center",
+          paddingLeft: 6,
+          paddingVertical: 8,
+          borderRadius: variant === "filled" || variant === "outlined" ? 4 : 0,
+          backgroundColor:
+            variant === "filled" ? backgroundColor : "transparent",
+          marginTop: 5,
+          borderWidth: variant === "outlined" ? 1 : 0,
+          borderBottomWidth:
+            variant === "standard" ? 1 : variant === "outlined" ? 1 : 0,
+          paddingRight: trailing && 12,
+        },
+        containerStyles,
+      ]}
+    >
       {withLabel && (
         <Animated.View
           pointerEvents="none"
           style={{
-            backgroundColor: isFocused ? "#fff" : "transparent",
+            backgroundColor: labelActive ? "#fff" : "transparent",
             position: "absolute",
             top: floatingLabelAnim,
             left: leading ? 36 : 20,
@@ -104,40 +122,18 @@ const TextInput: React.FC<CustomTextInputProps> = ({
           </Text>
         </Animated.View>
       )}
-
-      <View
+      {leading && <View>{leading()}</View>}
+      <NativeInput
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        {...rest}
         style={[
-          {
-            flexDirection: "row",
-            alignItems: "center",
-            paddingLeft: 4,
-            paddingVertical: 8,
-            borderRadius:
-              variant === "filled" || variant === "outlined" ? 4 : 0,
-            backgroundColor:
-              variant === "filled" ? backgroundColor : "transparent",
-            marginTop: 5,
-            borderWidth: variant === "outlined" ? 1 : 0,
-            borderBottomWidth:
-              variant === "standard" ? 1 : variant === "outlined" ? 1 : 0,
-            paddingRight: trailing && 8,
-          },
-          inputContainerStyles,
+          { flex: 2, paddingVertical: 0, paddingHorizontal: 4 },
+          textStyles,
         ]}
-      >
-        {leading && <View>{leading()}</View>}
-        <NativeInput
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          {...rest}
-          style={[
-            { flex: 2, paddingVertical: 0, paddingHorizontal: 4 },
-            textStyles,
-          ]}
-          placeholder={isFocused ? placeholder : ""}
-        />
-        {trailing && <View style={{ marginLeft: "auto" }}>{trailing()}</View>}
-      </View>
+        placeholder={isFocused ? placeholder : ""}
+      />
+      {trailing && <View style={{ marginLeft: "auto" }}>{trailing()}</View>}
     </View>
   );
 };

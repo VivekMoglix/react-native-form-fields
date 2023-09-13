@@ -52,7 +52,7 @@ Type: `StyleProp<TextStyles>`\
 optional: Yes\
 default = {}\
 <br />
-`inputContainerStyles`\
+`containerStyles`\
 Style to give the container of the input.\
 Type: `StyleProp<ViewStyles>`\
 optional: Yes\
