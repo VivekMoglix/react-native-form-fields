@@ -23,7 +23,7 @@
     "ios",
     "android"
   ],
-  "@react-native-community/bob": {
+  "@react-native-builder-bob": {
     "source": "src",
     "output": "dist",
     "targets": [
