@@ -60,7 +60,7 @@ const Button: React.FC<CustomButtonProps> = ({
           justifyContent: "center",
           marginBottom: 5,
           borderWidth: variant === "outlined" ? 1 : 0,
-          padding: 4,
+          padding: 8,
           flexDirection: "row",
           borderRadius: 4,
           backgroundColor:

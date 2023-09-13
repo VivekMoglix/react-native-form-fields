@@ -10,14 +10,6 @@ Install package using
 
 ## Usage
 
-### Components
-
-- Text Input
-- Button
-- Radio
-- Select
-- Popup
-
 ## Text Input
 
 ```
@@ -141,7 +133,10 @@ Style to give the label of the button.\
 Type: `StyleProp<TextStyles>`\
 optional: Yes\
 Default: {}\
-<br />
+
+```
+...TouchableOpacityProps
+```
 
 ## Radio
 

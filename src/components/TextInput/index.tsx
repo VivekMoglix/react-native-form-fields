@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Text,
   TextInput as NativeInput,
@@ -25,6 +25,7 @@ export interface CustomTextInputProps extends NativeInputProps {
 }
 
 const TextInput: React.FC<CustomTextInputProps> = ({
+  withLabel = true,
   label = "Input",
   labelStyles = { color: colors.DEFAULT_TEXT_LIGHT_GRAY },
   placeholder,
@@ -42,15 +43,22 @@ const TextInput: React.FC<CustomTextInputProps> = ({
   const floatingLabelAnim = new Animated.Value(16);
 
   useEffect(() => {
+    const { value } = { ...rest };
+    if (value && value?.length > 0) {
+      setIsFocused(true);
+    }
+  }, []);
+
+  useEffect(() => {
     isFocused
       ? Animated.timing(floatingLabelAnim, {
           toValue: -5,
-          duration: 250,
+          duration: 200,
           useNativeDriver: false,
         }).start()
       : Animated.timing(floatingLabelAnim, {
-          toValue: 12,
-          duration: 5000,
+          toValue: 16,
+          duration: 250,
           useNativeDriver: false,
         }).start();
   }, [isFocused]);
@@ -70,24 +78,32 @@ const TextInput: React.FC<CustomTextInputProps> = ({
 
   return (
     <View style={{ position: "relative" }}>
-      <Animated.Text
-        style={[
-          labelStyles,
-          {
+      {withLabel && (
+        <Animated.View
+          pointerEvents="none"
+          style={{
+            backgroundColor: isFocused ? "#fff" : "transparent",
             position: "absolute",
             top: floatingLabelAnim,
             left: leading ? 30 : 20,
-            backgroundColor: isFocused ? "#fff" : "transparent",
             zIndex: 2,
             paddingLeft: 4,
             paddingRight: 8,
             paddingBottom: 0,
-            color: isFocused ? "#000" : colors.textLightGray,
-          },
-        ]}
-      >
-        {label}
-      </Animated.Text>
+          }}
+        >
+          <Text
+            style={[
+              labelStyles,
+              {
+                color: colors.textLightGray,
+              },
+            ]}
+          >
+            {label}
+          </Text>
+        </Animated.View>
+      )}
 
       <View
         style={[
@@ -96,7 +112,6 @@ const TextInput: React.FC<CustomTextInputProps> = ({
             alignItems: "center",
             paddingHorizontal: 4,
             paddingVertical: 8,
-            borderColor: colors.DEFAULT_BUTTON_DARK_GRAY,
             borderRadius:
               variant === "filled" || variant === "outlined" ? 4 : 0,
             backgroundColor:
@@ -118,6 +133,7 @@ const TextInput: React.FC<CustomTextInputProps> = ({
             { flex: 2, paddingVertical: 0, paddingHorizontal: 4 },
             textStyles,
           ]}
+          placeholder={isFocused ? placeholder : ""}
         />
         {trailing && <View style={{ marginLeft: "auto" }}>{trailing()}</View>}
       </View>
