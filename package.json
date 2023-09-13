@@ -1,0 +1,38 @@
+{
+  "name": "react-native-form-fields",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/module/index.js",
+  "module": "dist/module/index.js",
+  "react-native": "src/index.js",
+  "files": [
+    "dist/",
+    "src/"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "bob build"
+  },
+  "author": "",
+  "license": "ISC",
+  "keywords": [
+    "react-native",
+    "form",
+    "fields",
+    "form-fields",
+    "ios",
+    "android"
+  ],
+  "@react-native-community/bob": {
+    "source": "src",
+    "output": "dist",
+    "targets": [
+      "module"
+    ]
+  },
+  "dependencies": {
+    "react-native-builder-bob": "^0.21.3",
+    "react-native-gesture-handler": "^2.12.1",
+    "react-native-vector-icons": "^10.0.0"
+  }
+}
