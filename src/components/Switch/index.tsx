@@ -21,6 +21,7 @@ export interface SwitchProps extends NativeSwitchProps {
         true?: string | null | undefined;
       }
     | undefined;
+  labelStyles?: StyleProp<TextStyle>;
 }
 
 const Switch: React.FC<SwitchProps> = ({
