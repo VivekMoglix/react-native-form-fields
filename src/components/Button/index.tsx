@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { colors } from "../../themes/colors";
 
-export interface CustomButtonProps extends NativeTouchableProps {
+export interface ButtonProps extends NativeTouchableProps {
   label?: string;
   withLoader?: boolean;
   variant?: "outlined" | "filled";
@@ -22,12 +22,18 @@ export interface CustomButtonProps extends NativeTouchableProps {
   loaderPosition?: "leading" | "trailing";
   backgroundColor?: string;
   loaderColor?: string;
-  leading?: any;
-  trailing?: any;
+  leading?:
+    | React.ReactNode
+    | ((props: { color: string; size: number }) => React.ReactNode | null)
+    | null;
+  trailing?:
+    | React.ReactNode
+    | ((props: { color: string; size: number }) => React.ReactNode | null)
+    | null;
   buttonStyle?: StyleProp<ViewStyle>;
 }
 
-const Button: React.FC<CustomButtonProps> = ({
+const Button: React.FC<ButtonProps> = ({
   label = "Button",
   withLoader = false,
   variant = "filled",
@@ -43,6 +49,18 @@ const Button: React.FC<CustomButtonProps> = ({
   buttonStyle,
   ...rest
 }) => {
+  const leadingNode =
+    typeof leading === "function"
+      ? leading({ color: "#f00", size: 24 })
+      : leading;
+
+  const trailingNode =
+    typeof trailing === "function"
+      ? trailing({
+          color: "#f00",
+          size: 24,
+        })
+      : trailing;
   return (
     <NativeTouchable
       {...rest}
@@ -81,7 +99,7 @@ const Button: React.FC<CustomButtonProps> = ({
           />
         ) : null
       ) : null}
-      {leading && <View>{leading()}</View>}
+      {leadingNode && <View>{leadingNode}</View>}
       <Text
         style={[
           {
@@ -95,7 +113,9 @@ const Button: React.FC<CustomButtonProps> = ({
       >
         {label}
       </Text>
-      {trailing && <View>{trailing()}</View>}
+      {trailingNode && (
+        <View style={{ marginLeft: "auto" }}>{trailingNode}</View>
+      )}
       {loaderPosition === "trailing" && withLoader ? (
         isLoading ? (
           <ActivityIndicator

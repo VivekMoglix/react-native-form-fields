@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Text,
   TextInput as NativeInput,
@@ -11,21 +11,27 @@ import {
 } from "react-native";
 import { colors } from "../../themes/colors";
 
-export interface CustomTextInputProps extends NativeInputProps {
+export interface TextInputProps extends NativeInputProps {
   withLabel?: boolean;
   label?: string;
-  variant?: "standard" | "outlined" | "filled";
+  variant?: "standard" | "outlined";
   labelStyles?: StyleProp<TextStyle>;
   containerStyles?: StyleProp<ViewStyle>;
-  leading?: any;
-  trailing?: any;
+  leading?:
+    | React.ReactNode
+    | ((props: { color: string; size: number }) => React.ReactNode | null)
+    | null;
+  trailing?:
+    | React.ReactNode
+    | ((props: { color: string; size: number }) => React.ReactNode | null)
+    | null;
   textStyles?: StyleProp<TextStyle>;
   backgroundColor?: string;
   placeholder?: string;
   focusColor?: string;
 }
 
-const TextInput: React.FC<CustomTextInputProps> = ({
+const TextInput: React.FC<TextInputProps> = ({
   withLabel = true,
   label = "Input",
   labelStyles = { color: colors.DEFAULT_TEXT_LIGHT_GRAY },
@@ -43,8 +49,20 @@ const TextInput: React.FC<CustomTextInputProps> = ({
   const [isFocused, setIsFocused] = useState(false);
   const [labelActive, setLabelActive] = useState(false);
   const { value } = { ...rest };
-
   const floatingLabelAnim = new Animated.Value(10);
+
+  const leadingNode =
+    typeof leading === "function"
+      ? leading({ color: "#f00", size: 24 })
+      : leading;
+
+  const trailingNode =
+    typeof trailing === "function"
+      ? trailing({
+          color: "#f00",
+          size: 24,
+        })
+      : trailing;
 
   useEffect(() => {
     if (value && value?.length > 0) {
@@ -55,7 +73,7 @@ const TextInput: React.FC<CustomTextInputProps> = ({
   useEffect(() => {
     labelActive
       ? Animated.timing(floatingLabelAnim, {
-          toValue: -10,
+          toValue: -12,
           duration: 100,
           useNativeDriver: false,
         }).start()
@@ -86,14 +104,14 @@ const TextInput: React.FC<CustomTextInputProps> = ({
           alignItems: "center",
           paddingLeft: 6,
           paddingVertical: 8,
-          borderRadius: variant === "filled" || variant === "outlined" ? 4 : 0,
-          backgroundColor:
-            variant === "filled" ? backgroundColor : "transparent",
+          borderRadius: variant === "outlined" ? 4 : 0,
+          backgroundColor: "transparent",
           marginTop: 5,
           borderWidth: variant === "outlined" ? 1 : 0,
           borderBottomWidth:
             variant === "standard" ? 1 : variant === "outlined" ? 1 : 0,
-          paddingRight: trailing && 12,
+          paddingRight: trailing ? 12 : 8,
+          borderColor: isFocused ? focusColor : colors.DEFAULT_BUTTON_DARK_GRAY,
         },
         containerStyles,
       ]}
@@ -102,10 +120,7 @@ const TextInput: React.FC<CustomTextInputProps> = ({
         <Animated.View
           pointerEvents="none"
           style={{
-            backgroundColor: labelActive ? "#fff" : "transparent",
-            borderColor: isFocused
-              ? focusColor
-              : colors.DEFAULT_BUTTON_DARK_GRAY,
+            backgroundColor: labelActive ? backgroundColor : "transparent",
             position: "absolute",
             top: floatingLabelAnim,
             left: leading ? 36 : 20,
@@ -127,7 +142,7 @@ const TextInput: React.FC<CustomTextInputProps> = ({
           </Text>
         </Animated.View>
       )}
-      {leading && <View>{leading()}</View>}
+      {leadingNode && <View>{leadingNode}</View>}
       <NativeInput
         onFocus={handleFocus}
         onBlur={handleBlur}
@@ -138,7 +153,9 @@ const TextInput: React.FC<CustomTextInputProps> = ({
         ]}
         placeholder={isFocused ? placeholder : ""}
       />
-      {trailing && <View style={{ marginLeft: "auto" }}>{trailing()}</View>}
+      {trailingNode && (
+        <View style={{ marginLeft: "auto" }}>{trailingNode}</View>
+      )}
     </View>
   );
 };

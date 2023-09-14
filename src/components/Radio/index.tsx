@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { colors } from "../../themes/colors";
 
-export interface CustomRadioButtonProps extends NativeTouchableOpacityprops {
+export interface RadioButtonProps extends NativeTouchableOpacityprops {
   isChecked?: boolean;
   label?: string;
   labelPosition?: "top" | "right" | "bottom" | "left";
@@ -21,7 +21,7 @@ export interface CustomRadioButtonProps extends NativeTouchableOpacityprops {
   containerStyles?: StyleProp<ViewStyle>;
 }
 
-const Radio: React.FC<CustomRadioButtonProps> = ({
+const Radio: React.FC<RadioButtonProps> = ({
   isChecked = false,
   label = "Label",
   uncheckedColor = colors.DEFAULT_BUTTON_DARK_GRAY,

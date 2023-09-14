@@ -35,16 +35,17 @@ Default: "outlined"\
 <br />
 `leading`\
 Element placed before the text input.\
-Type: React.ReactNode\
+Type: React.ReactNode | function\
 Optional: Yes\
-Example: `leading = {() => return <Icon name="check" color={'red'} size={18} />}`
+Example: `leading = {<Icon name="check" color={'red'} size={18} />}` or `leading={props => {return <Icon name="eye" {...props} />;}}`
 <br />
 <br />
 `trailing`\
 Element placed before the text input.\
-Type: React.ReactNode\
+Type: React.ReactNode | function\
 Optional: Yes\
-Example: `trailing = {() => return  <Icon name="check" color={'red'} size={18} />}`\
+Example: `trailing = {<Icon name="check" color={'red'} size={18} />}` or `trailing={props => {return <Icon name="eye" {...props} />;}}`
+<br />
 <br />
 `labelStyles`\
 Style to give the label.\
@@ -112,15 +113,18 @@ Type: "small" | "large"\
 Default: "small"\
 <br />
 `leading`\
-Element placed before the button label.\
-Type: React.ReactNode\
-Example: `leading = {() => <Icon name="check" color={'red'}size={18} />}`
+Element placed before the text input.\
+Type: React.ReactNode | function\
+Optional: Yes\
+Example: `leading = {<Icon name="check" color={'red'} size={18} />}` or `leading={props => {return <Icon name="eye" {...props} />;}}`
 <br />
 <br />
 `trailing`\
-Element placed before the button label.\
-Type: React.ReactNode\
-Example: `trailing = {() => <Icon name="check" color={'red'} size={18} />}`\
+Element placed before the text input.\
+Type: React.ReactNode | function\
+Optional: Yes\
+Example: `trailing = {<Icon name="check" color={'red'} size={18} />}` or `trailing={props => {return <Icon name="eye" {...props} />;}}`
+<br />
 <br />
 `buttonStyle`\
 Style to give conatiner of button.\
