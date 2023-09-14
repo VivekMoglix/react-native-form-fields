@@ -6,7 +6,7 @@
   "module": "dist/module/index.js",
   "react-native": "src/index.js",
   "files": [
-    "dist/",
+    "lib/",
     "src/"
   ],
   "scripts": {
@@ -25,7 +25,7 @@
   ],
   "react-native-builder-bob": {
     "source": "src",
-    "output": "dist",
+    "output": "lib",
     "targets": [
       "module",
       "commonjs"
