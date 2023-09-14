@@ -4,12 +4,16 @@ import type { ButtonProps } from "./components/Button";
 import Button from "./components/Button";
 import type { RadioButtonProps } from "./components/Radio";
 import Radio from "./components/Radio";
+import type { SwitchProps } from "./components/Switch";
+import Switch from "./components/Switch";
 
 export {
   TextInput,
-  Button,
-  Radio,
   TextInputProps,
+  Button,
   ButtonProps,
+  Radio,
   RadioButtonProps,
+  Switch,
+  SwitchProps,
 };

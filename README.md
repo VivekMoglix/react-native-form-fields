@@ -191,3 +191,28 @@ Default: 'color'\
 The styles of the radio button container.\
 Type: `StyleProp<ViewStyle>`\
 Default: {}
+
+## Switch
+
+```
+import {Switch} from 'm-react-native-form-fields'
+```
+
+`label`\
+The label of the radio button.\
+Type: string;\
+Default: Switch\
+<br />
+`labelPosition`\
+The positon of the label.\
+Type: 'leading' | 'trailing'\
+default: "leading"\
+<br />
+`containerStyles`\
+The styles of the switch container.\
+Type: `StyleProp<ViewStyle>`\
+Default: {}
+
+```
+...SwitchProps
+```
