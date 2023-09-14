@@ -2,9 +2,9 @@
   "name": "m-react-native-form-fields",
   "version": "1.0.5",
   "description": "React Native Form Fields",
-  "main": "lib/module/index.js",
-  "module": "lib/module/index.js",
-  "react-native": "src/index.js",
+  "main": "lib/module/index.ts",
+  "module": "lib/module/index.ts",
+  "react-native": "src/index.ts",
   "files": [
     "lib/",
     "src/"
