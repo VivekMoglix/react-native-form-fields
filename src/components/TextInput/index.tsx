@@ -7,9 +7,9 @@ import {
   StyleProp,
   ViewStyle,
   TextStyle,
+  Animated,
 } from "react-native";
-import colors from "../../themes/colors";
-import Dimension from "../../themes/dimensions";
+import { colors } from "../../themes/colors";
 
 export interface TextInputProps extends NativeInputProps {
   withLabel?: boolean;
@@ -34,7 +34,7 @@ export interface TextInputProps extends NativeInputProps {
 const TextInput: React.FC<TextInputProps> = ({
   withLabel = true,
   label = "Input",
-  labelStyles,
+  labelStyles = { color: colors.DEFAULT_TEXT_LIGHT_GRAY },
   placeholder,
   placeholderTextColor = "#C6C7CC",
   variant = "outlined",
@@ -43,13 +43,14 @@ const TextInput: React.FC<TextInputProps> = ({
   leading,
   trailing,
   textStyles,
-  focusColor = colors.lightGrayText,
+  focusColor = colors.SELECTED_OPTION_COLOR,
   ...rest
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [labelActive, setLabelActive] = useState(false);
   const props = { ...rest };
   let { value } = props;
+  const floatingLabelAnim = new Animated.Value(10);
 
   const leadingNode =
     typeof leading === "function"
@@ -69,6 +70,20 @@ const TextInput: React.FC<TextInputProps> = ({
       setLabelActive(true);
     }
   }, []);
+
+  useEffect(() => {
+    labelActive
+      ? Animated.timing(floatingLabelAnim, {
+          toValue: -12,
+          duration: 100,
+          useNativeDriver: false,
+        }).start()
+      : Animated.timing(floatingLabelAnim, {
+          toValue: 10,
+          duration: 0,
+          useNativeDriver: false,
+        }).start();
+  }, [labelActive]);
 
   const handleFocus = () => {
     setLabelActive(true);
@@ -90,36 +105,26 @@ const TextInput: React.FC<TextInputProps> = ({
           alignItems: "center",
           paddingLeft: 6,
           paddingVertical: 8,
-          borderRadius: variant === "outlined" ? 8 : 0,
+          borderRadius: variant === "outlined" ? 4 : 0,
           backgroundColor: "transparent",
+          marginTop: 5,
           borderWidth: variant === "outlined" ? 1 : 0,
           borderBottomWidth:
             variant === "standard" ? 1 : variant === "outlined" ? 1 : 0,
           paddingRight: trailing ? 12 : 8,
-          borderColor: isFocused ? focusColor : colors.lightGrayText,
-          width: "100%",
-          marginTop: Dimension.margin20,
-          height: Dimension.height40,
-          marginRight: Dimension.margin10,
+          borderColor: isFocused ? focusColor : colors.DEFAULT_BUTTON_DARK_GRAY,
         },
         containerStyles,
       ]}
     >
       {withLabel && (
-        <View
+        <Animated.View
           pointerEvents="none"
           style={{
             backgroundColor: labelActive ? backgroundColor : "transparent",
             position: "absolute",
-            top:
-              variant === "standard"
-                ? labelActive
-                  ? -8
-                  : 15
-                : labelActive
-                ? -12
-                : 14,
-            left: leading ? 26 : 12,
+            top: floatingLabelAnim,
+            left: leading ? 36 : 20,
             zIndex: 2,
             paddingLeft: 4,
             paddingRight: 8,
@@ -128,17 +133,15 @@ const TextInput: React.FC<TextInputProps> = ({
         >
           <Text
             style={[
-              {
-                fontFamily: Dimension.CustomSemiBoldFont,
-                fontSize: Dimension.font12,
-                color: "#6F6F6F",
-              },
               labelStyles,
+              {
+                color: isFocused ? focusColor : colors.textLightGray,
+              },
             ]}
           >
             {label}
           </Text>
-        </View>
+        </Animated.View>
       )}
       {leadingNode && <View>{leadingNode}</View>}
       <NativeInput
@@ -146,15 +149,7 @@ const TextInput: React.FC<TextInputProps> = ({
         onBlur={handleBlur}
         {...rest}
         style={[
-          {
-            flex: 2,
-            paddingVertical: 0,
-            paddingHorizontal: 10,
-            fontFamily: Dimension.CustomRegularFont,
-            fontSize: Dimension.font12,
-            textAlignVertical: "center",
-            color: colors.PrimaryTextColor,
-          },
+          { flex: 2, paddingVertical: 0, paddingHorizontal: 4 },
           textStyles,
         ]}
         placeholder={isFocused ? placeholder : ""}
