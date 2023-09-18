@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react-jsx",
+    "lib": ["esnext"],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noFallthroughCasesInSwitch": false,
+    "noImplicitReturns": false,
+    "noImplicitUseStrict": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "resolveJsonModule": false,
+    "skipLibCheck": true,
+    "strict": false,
+    "target": "esnext"
+  },
+  "exclude": ["example"]
+}

@@ -48,7 +48,8 @@ const TextInput: React.FC<TextInputProps> = ({
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [labelActive, setLabelActive] = useState(false);
-  const { value } = { ...rest };
+  const props = { ...rest };
+  let { value } = props;
   const floatingLabelAnim = new Animated.Value(10);
 
   const leadingNode =
