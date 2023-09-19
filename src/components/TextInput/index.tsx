@@ -35,7 +35,7 @@ export interface TextInputProps extends NativeInputProps {
 const TextInput: React.FC<TextInputProps> = ({
   withLabel = true,
   label = "Input",
-  labelStyles = { color: "#6F6F6F" },
+  labelStyles,
   placeholder,
   placeholderTextColor = "#C6C7CC",
   variant = "outlined",
