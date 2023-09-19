@@ -10,6 +10,7 @@ import {
   Animated,
 } from "react-native";
 import { colors } from "../../themes/colors";
+import Dimension from "../../themes/dimensions";
 
 export interface TextInputProps extends NativeInputProps {
   withLabel?: boolean;
@@ -43,7 +44,7 @@ const TextInput: React.FC<TextInputProps> = ({
   leading,
   trailing,
   textStyles,
-  focusColor = colors.SELECTED_OPTION_COLOR,
+  focusColor = colors.lightGrayText,
   ...rest
 }) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -105,14 +106,17 @@ const TextInput: React.FC<TextInputProps> = ({
           alignItems: "center",
           paddingLeft: 6,
           paddingVertical: 8,
-          borderRadius: variant === "outlined" ? 4 : 0,
+          borderRadius: variant === "outlined" ? 8 : 0,
           backgroundColor: "transparent",
-          marginTop: 5,
           borderWidth: variant === "outlined" ? 1 : 0,
           borderBottomWidth:
             variant === "standard" ? 1 : variant === "outlined" ? 1 : 0,
           paddingRight: trailing ? 12 : 8,
           borderColor: isFocused ? focusColor : colors.DEFAULT_BUTTON_DARK_GRAY,
+          width: "100%",
+          marginTop: Dimension.margin20,
+          height: Dimension.height40,
+          marginRight: Dimension.margin10,
         },
         containerStyles,
       ]}
@@ -133,10 +137,12 @@ const TextInput: React.FC<TextInputProps> = ({
         >
           <Text
             style={[
-              labelStyles,
               {
-                color: isFocused ? focusColor : colors.textLightGray,
+                fontFamily: Dimension.CustomSemiBoldFont,
+                fontSize: Dimension.font12,
+                color: "#6F6F6F",
               },
+              labelStyles,
             ]}
           >
             {label}
@@ -149,7 +155,16 @@ const TextInput: React.FC<TextInputProps> = ({
         onBlur={handleBlur}
         {...rest}
         style={[
-          { flex: 2, paddingVertical: 0, paddingHorizontal: 4 },
+          {
+            flex: 2,
+            paddingVertical: 0,
+            paddingHorizontal: 4,
+            fontFamily: Dimension.CustomRegularFont,
+            fontSize: Dimension.font12,
+            textAlignVertical: "center",
+            color: colors.PrimaryTextColor,
+            fontWeight: Dimension.CustomSemiBoldFont,
+          },
           textStyles,
         ]}
         placeholder={isFocused ? placeholder : ""}

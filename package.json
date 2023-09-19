@@ -1,6 +1,6 @@
 {
   "name": "m-react-native-form-fields",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "React Native Form Fields",
   "main": "lib/module/index.js",
   "module": "lib/module/index.js",
@@ -23,7 +23,11 @@
     "fields",
     "form-fields",
     "ios",
-    "android"
+    "android",
+    "floating-label-text-input",
+    "radio-button",
+    "switch",
+    "button"
   ],
   "react-native-builder-bob": {
     "source": "src",
