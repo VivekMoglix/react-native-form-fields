@@ -7,7 +7,6 @@ import {
   StyleProp,
   ViewStyle,
   TextStyle,
-  Animated,
 } from "react-native";
 import DefaultAppColors from "../../themes/colors";
 import Dimension from "../../themes/dimensions";
@@ -51,7 +50,6 @@ const TextInput: React.FC<TextInputProps> = ({
   const [labelActive, setLabelActive] = useState(false);
   const props = { ...rest };
   let { value } = props;
-  const floatingLabelAnim = new Animated.Value(10);
 
   const leadingNode =
     typeof leading === "function"
@@ -108,7 +106,7 @@ const TextInput: React.FC<TextInputProps> = ({
       ]}
     >
       {withLabel && (
-        <Animated.View
+        <View
           pointerEvents="none"
           style={{
             backgroundColor: labelActive ? backgroundColor : "transparent",
@@ -140,7 +138,7 @@ const TextInput: React.FC<TextInputProps> = ({
           >
             {label}
           </Text>
-        </Animated.View>
+        </View>
       )}
       {leadingNode && <View>{leadingNode}</View>}
       <NativeInput
