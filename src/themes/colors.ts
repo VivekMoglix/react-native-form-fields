@@ -1,11 +1,4 @@
-/**
- * This file contains the application's colors.
- *
- * Define color here instead of duplicating them throughout the components.
- * That allows to change them more easily later on.
- */
-
-export default {
+const DefaultAppColors = {
   transparent: "rgba(0,0,0,0)",
   //Example colors:
   text: "#212529",
@@ -54,3 +47,5 @@ export default {
   newgrayText: "#6F6F6F",
   greenBG: "#F6FFF5",
 };
+
+export default DefaultAppColors;

@@ -8,7 +8,7 @@ import {
   View,
   ViewStyle,
 } from "react-native";
-import colors from "../../themes/colors";
+import DefaultAppColors from "../../themes/colors";
 
 export interface RadioButtonProps extends NativeTouchableOpacityprops {
   isChecked?: boolean;
@@ -24,8 +24,8 @@ export interface RadioButtonProps extends NativeTouchableOpacityprops {
 const Radio: React.FC<RadioButtonProps> = ({
   isChecked = false,
   label = "Label",
-  uncheckedColor = colors.gray2,
-  checkedColor = colors.lightGreen,
+  uncheckedColor = DefaultAppColors.gray2,
+  checkedColor = DefaultAppColors.lightGreen,
   labelPosition = "left",
   radioButtonShape = "square",
   radioButtonType = "color",
