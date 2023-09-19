@@ -8,7 +8,7 @@ import {
   ViewStyle,
   TextStyle,
 } from "react-native";
-import { colors } from "../../themes/colors";
+import colors from "../../themes/colors";
 
 export interface SwitchProps extends NativeSwitchProps {
   label?: string;
@@ -29,7 +29,7 @@ const Switch: React.FC<SwitchProps> = ({
   labelPosition = "leading",
   style,
   containerStyles,
-  trackColor = { false: colors.buttonDarkGray, true: colors.buttonDarkGray },
+  trackColor = { false: colors.gray2, true: colors.gray2 },
   labelStyles,
   ...rest
 }) => {

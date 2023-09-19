@@ -9,7 +9,7 @@ import {
   TextStyle,
   ViewStyle,
 } from "react-native";
-import { colors } from "../../themes/colors";
+import colors from "../../themes/colors";
 
 export interface ButtonProps extends NativeTouchableProps {
   label?: string;
@@ -42,7 +42,7 @@ const Button: React.FC<ButtonProps> = ({
   isLoading,
   textStyles,
   loaderPosition = "leading",
-  backgroundColor = colors.DEFAULT_BUTTON_DARK_GRAY,
+  backgroundColor = colors.gray2,
   loaderColor = variant === "filled" ? "white" : "black",
   leading,
   trailing,
