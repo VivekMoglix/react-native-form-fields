@@ -7,9 +7,8 @@ import {
   StyleProp,
   ViewStyle,
   TextStyle,
-  Animated,
 } from "react-native";
-import { colors } from "../../themes/colors";
+import colors from "../../themes/colors";
 import Dimension from "../../themes/dimensions";
 
 export interface TextInputProps extends NativeInputProps {
@@ -35,7 +34,7 @@ export interface TextInputProps extends NativeInputProps {
 const TextInput: React.FC<TextInputProps> = ({
   withLabel = true,
   label = "Input",
-  labelStyles = { color: colors.DEFAULT_TEXT_LIGHT_GRAY },
+  labelStyles,
   placeholder,
   placeholderTextColor = "#C6C7CC",
   variant = "outlined",
@@ -51,7 +50,6 @@ const TextInput: React.FC<TextInputProps> = ({
   const [labelActive, setLabelActive] = useState(false);
   const props = { ...rest };
   let { value } = props;
-  const floatingLabelAnim = new Animated.Value(10);
 
   const leadingNode =
     typeof leading === "function"
@@ -71,20 +69,6 @@ const TextInput: React.FC<TextInputProps> = ({
       setLabelActive(true);
     }
   }, []);
-
-  useEffect(() => {
-    labelActive
-      ? Animated.timing(floatingLabelAnim, {
-          toValue: -12,
-          duration: 100,
-          useNativeDriver: false,
-        }).start()
-      : Animated.timing(floatingLabelAnim, {
-          toValue: 10,
-          duration: 0,
-          useNativeDriver: false,
-        }).start();
-  }, [labelActive]);
 
   const handleFocus = () => {
     setLabelActive(true);
@@ -112,7 +96,7 @@ const TextInput: React.FC<TextInputProps> = ({
           borderBottomWidth:
             variant === "standard" ? 1 : variant === "outlined" ? 1 : 0,
           paddingRight: trailing ? 12 : 8,
-          borderColor: isFocused ? focusColor : colors.DEFAULT_BUTTON_DARK_GRAY,
+          borderColor: isFocused ? focusColor : colors.lightGrayText,
           width: "100%",
           marginTop: Dimension.margin20,
           height: Dimension.height40,
@@ -122,13 +106,20 @@ const TextInput: React.FC<TextInputProps> = ({
       ]}
     >
       {withLabel && (
-        <Animated.View
+        <View
           pointerEvents="none"
           style={{
             backgroundColor: labelActive ? backgroundColor : "transparent",
             position: "absolute",
-            top: floatingLabelAnim,
-            left: leading ? 36 : 20,
+            top:
+              variant === "standard"
+                ? labelActive
+                  ? -8
+                  : 15
+                : labelActive
+                ? -12
+                : 14,
+            left: leading ? 26 : 12,
             zIndex: 2,
             paddingLeft: 4,
             paddingRight: 8,
@@ -147,7 +138,7 @@ const TextInput: React.FC<TextInputProps> = ({
           >
             {label}
           </Text>
-        </Animated.View>
+        </View>
       )}
       {leadingNode && <View>{leadingNode}</View>}
       <NativeInput
@@ -158,12 +149,11 @@ const TextInput: React.FC<TextInputProps> = ({
           {
             flex: 2,
             paddingVertical: 0,
-            paddingHorizontal: 4,
+            paddingHorizontal: 10,
             fontFamily: Dimension.CustomRegularFont,
             fontSize: Dimension.font12,
             textAlignVertical: "center",
             color: colors.PrimaryTextColor,
-            fontWeight: Dimension.CustomSemiBoldFont,
           },
           textStyles,
         ]}
