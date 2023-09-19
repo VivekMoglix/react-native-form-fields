@@ -37,7 +37,6 @@ export default {
   BoldgreenText: "#299E22",
   navbarBackgroundColor: "#2c3e50",
   statusBarColor: "#233240",
-  ratingColor: "#309617",
   green2: "#4AB316",
   gray2: "#E2E2E2",
   orangeShade: "#F76820",
