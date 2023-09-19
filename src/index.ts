@@ -6,9 +6,8 @@ import type { RadioButtonProps } from "./components/Radio";
 import Radio from "./components/Radio";
 import type { SwitchProps } from "./components/Switch";
 import Switch from "./components/Switch";
-
-export * from "./themes/colors";
-export * from "./themes/dimensions";
+import DefaultAppColors from "./themes/colors";
+import Dimension from "./themes/dimensions";
 
 export {
   TextInput,
@@ -19,4 +18,6 @@ export {
   RadioButtonProps,
   Switch,
   SwitchProps,
+  DefaultAppColors,
+  Dimension,
 };
