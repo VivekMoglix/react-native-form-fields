@@ -10,12 +10,13 @@ import {
   ViewStyle,
 } from "react-native";
 import DefaultAppColors from "../../themes/colors";
+import Dimension from "../../themes/dimensions";
 
 export interface ButtonProps extends NativeTouchableProps {
   label?: string;
   withLoader?: boolean;
   variant?: "outlined" | "filled";
-  size?: "small" | "medium" | "full";
+  size?: "small" | "full";
   loaderSize?: "small" | "large";
   isLoading?: boolean;
   textStyles: StyleProp<TextStyle>;
@@ -31,6 +32,7 @@ export interface ButtonProps extends NativeTouchableProps {
     | ((props: { color: string; size: number }) => React.ReactNode | null)
     | null;
   buttonStyle?: StyleProp<ViewStyle>;
+  isLabelUppercase?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -42,11 +44,12 @@ const Button: React.FC<ButtonProps> = ({
   isLoading,
   textStyles,
   loaderPosition = "leading",
-  backgroundColor = DefaultAppColors.gray2,
+  backgroundColor = DefaultAppColors.RedThemeColor,
   loaderColor = variant === "filled" ? "white" : "black",
   leading,
   trailing,
   buttonStyle,
+  isLabelUppercase = false,
   ...rest
 }) => {
   const leadingNode =
@@ -66,21 +69,14 @@ const Button: React.FC<ButtonProps> = ({
       {...rest}
       style={[
         {
-          width:
-            size === "small"
-              ? 150
-              : size === "medium"
-              ? 250
-              : size === "full"
-              ? "100%"
-              : null,
+          width: size === "small" ? 150 : size === "full" ? "100%" : null,
           alignItems: "center",
           justifyContent: "center",
           marginBottom: 5,
           borderWidth: variant === "outlined" ? 1 : 0,
           padding: 8,
           flexDirection: "row",
-          borderRadius: 4,
+          borderRadius: 6,
           backgroundColor:
             variant === "filled" ? backgroundColor : "transparent",
         },
@@ -92,7 +88,7 @@ const Button: React.FC<ButtonProps> = ({
           <ActivityIndicator
             style={{
               position: "absolute",
-              left: 10,
+              left: size === "small" ? 2 : 10,
             }}
             size={loaderSize}
             color={loaderColor}
@@ -104,14 +100,14 @@ const Button: React.FC<ButtonProps> = ({
         style={[
           {
             justifyContent: "center",
-            marginLeft: leading && 8,
-            marginRight: trailing && 8,
             color: variant === "filled" ? "white" : "black",
+            fontSize: Dimension.font14,
+            fontFamily: Dimension.CustomBoldFont,
           },
           textStyles,
         ]}
       >
-        {label}
+        {isLabelUppercase ? label.toUpperCase() : label}
       </Text>
       {trailingNode && (
         <View style={{ marginLeft: "auto" }}>{trailingNode}</View>
@@ -121,7 +117,7 @@ const Button: React.FC<ButtonProps> = ({
           <ActivityIndicator
             style={{
               position: "absolute",
-              right: 10,
+              right: size === "small" ? 2 : 10,
             }}
             size={loaderSize}
             color={loaderColor}
