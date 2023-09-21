@@ -71,6 +71,8 @@ const TextInput: React.FC<TextInputProps> = ({
   useEffect(() => {
     if (!labelActive && value && value?.length > 0) {
       setLabelActive(true);
+    } else if (!isFocused) {
+      setLabelActive(false);
     }
   }, [value]);
 
@@ -177,9 +179,10 @@ const TextInput: React.FC<TextInputProps> = ({
       {errorState && (
         <Text
           style={{
-            fontSize: Dimension.font12,
             paddingLeft: Dimension.padding6,
             color: DefaultAppColors.RedThemeColor,
+            fontSize: Dimension.font11,
+            fontFamily: Dimension.CustomRegularFont,
           }}
         >
           {errorText}
