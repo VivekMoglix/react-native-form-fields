@@ -8,6 +8,15 @@ Install package using
 
 `npm install m-react-native-form-fields` or `yarn add m-react-native-form-fields`
 
+## Components
+
+- [Text Input](#text-input)
+- [Button](#button)
+- [Radio Button](#radio-button)
+- [Switch](#switch)
+
+More components coming soon
+
 ## Usage
 
 ## Text Input
@@ -20,50 +29,60 @@ import {TextInput} from 'm-react-native-form-fields'
 
 `label`\
 The label to display.\
-Type: string;\
+Type: `string`\
 Default: 'label'\
-<br />
+
 `withLabel`\
 Hide/show the label\
-Type: boolean;\
+Type: `boolean`\
 Default: true\
-<br />
+
 `variant`\
 The variant to use.\
-Type: "standard" | "outlined"\
+Type: `"standard" | "outlined"`\
 Default: "outlined"\
-<br />
+
 `leading`\
 Element placed before the text input.\
 Type: React.ReactNode | function\
 Optional: Yes\
-Example: `leading = {<Icon name="check" color={'red'} size={18} />}` or `leading={props => {return <Icon name="eye" {...props} />;}}`
-<br />
-<br />
+Example: `leading = {<Icon name="check" color={'red'} size={18} />}` or `leading={props => {return <Icon name="eye" {...props} />}}`
+
 `trailing`\
 Element placed before the text input.\
 Type: React.ReactNode | function\
 Optional: Yes\
-Example: `trailing = {<Icon name="check" color={'red'} size={18} />}` or `trailing={props => {return <Icon name="eye" {...props} />;}}`
-<br />
-<br />
+Example: `trailing = {<Icon name="check" color={'red'} size={18} />}` or `trailing={props => {return <Icon name="eye" {...props} />}}`
+
 `labelStyles`\
 Style to give the label.\
 Type: `StyleProp<TextStyles>`\
 optional: Yes\
 default = {}\
-<br />
+
 `containerStyles`\
 Style to give the container of the input.\
 Type: `StyleProp<ViewStyles>`\
 optional: Yes\
 default = {}\
-<br />
+
 `textStyles`
 Style to give the text of the input.\
 Type: `StyleProp<TextStyles>`\
 optional: Yes\
 default = {}\
+
+`errorState`\
+Flag in case of error input.\
+Type: `boolean`\
+optional: Yes\
+default = {false}\
+
+`errorText`\
+Text to show in case of error.\
+Type: `string`\
+optional: Yes\
+default = 'error'\
 
 ```
 ...TextInputProps
@@ -79,70 +98,84 @@ import {Button} from 'm-react-native-form-fields'
 
 `label`\
 The label on the button.\
-Type: string;\
-Default: Button\
-<br />
+Type: `string`\
+Default: Button
+
 `variant`\
 The variant to use.\
-Type: "outlined" | "filled"\
-default: "filled"\
-<br />
+Type: `"outlined" | "filled"`\
+default: "filled"
+
 `size`\
 The size to use.\
-Type: "small" | "medium" | "full"\
-default: "small"\
-<br />
+Type: `"small" | "full"`\
+default: "full"
+
 `withLoader`\
 has loader or not.\
-Type: boolean;\
-Default: false\
-<br />
+Type: `boolean`\
+Default: false
+
 `isLoading`\
 Show/Hide loading icon.\
-Type: boolean;\
-Default: false\
-<br />
+Type:`boolean`\
+Default: false
+
 `loaderSize`\
 The position of the loader, `leading=before label`, `trailing=after label`.\
 Type: "leading" | "trailing"\
-Default: "leading"\
-<br />
+Default: "leading"
+
 `loaderPosition`\
 The size of the loader.\
 Type: "small" | "large"\
-Default: "small"\
-<br />
+Default: "small"
+
+`loaderColor`\
+The color of the loader.\
+Type: "String"\
+Default: "white" for filled variant | "black" for outlined variant\
+
 `leading`\
 Element placed before the text input.\
 Type: React.ReactNode | function\
 Optional: Yes\
-Example: `leading = {<Icon name="check" color={'red'} size={18} />}` or `leading={props => {return <Icon name="eye" {...props} />;}}`
-<br />
-<br />
+Example: `leading = {<Icon name="check" color={'red'} size={18} />}` or `leading={props => {return <Icon name="eye" {...props} />}}`
+
 `trailing`\
 Element placed before the text input.\
 Type: React.ReactNode | function\
 Optional: Yes\
-Example: `trailing = {<Icon name="check" color={'red'} size={18} />}` or `trailing={props => {return <Icon name="eye" {...props} />;}}`
-<br />
-<br />
+Example: `trailing = {<Icon name="check" color={'red'} size={18} />}` or `trailing={props => {return <Icon name="eye" {...props} />}}`
+
 `buttonStyle`\
 Style to give conatiner of button.\
 Type: `StyleProp<ViewStyle>`\
 optional: Yes\
-Default: {}\
-<br />
+Default: {}
+
 `textStyles`\
 Style to give the label of the button.\
 Type: `StyleProp<TextStyles>`\
 optional: Yes\
-Default: {}\
+Default: {}
+
+`isLabelUppercase`\
+To convert label to uppercase.\
+Type: `boolean`\
+Default: false
+
+`theme`\
+Changes the background color and color of the label.\
+Type: 'dark-red' | 'light-red' | 'black-white'
+Default: 'dark-red'\
+In case you want to give custom colors, edit buttonStyle and textStyles.
 
 ```
 ...TouchableOpacityProps
 ```
 
-## Radio
+## Radio Button
 
 ```
 import {Radio} from 'm-react-native-form-fields'
@@ -152,41 +185,41 @@ import {Radio} from 'm-react-native-form-fields'
 
 `label`\
 The label of the radio button.\
-Type: string;\
+Type: `string`\
 Default: Label\
-<br />
+
 `labelPosition`\
 The positon of the label.\
 Type: 'top' | 'right' | 'bottom' | 'left'\
-default: "left"\
-<br />
+default: "left"
+
 `isChecked`\
 Value of the radio button.\
-Type: boolean;\
-Default: false\
-<br />
+Type: `boolean`\
+Default: false
+
 `checkedColor`\
 The color of the checked radio button.\
-Type: string;\
-default: '#56AFF0'\
-<br />
+Type: `string`\
+default: '#56AFF0'
+
 `uncheckedColor`\
 The color of the unchecked radio button.\
-Type: string;\
-default: '#E9E9E9'\
-<br />
+Type: `string`\
+default: '#E9E9E9'
+
 `radioButtonShape`\
 The shape of the radio button.\
 Type: 'circle' | 'square'\
-default: 'square'\
-<br />
+default: 'square'
+
 `radioButtonType`\
 The type of radio button.\
 `icon = shows check icon when isChecked={true}`\
 `color = shows filled color when isChecked={true}`\
-Type: 'icon' | 'color';\
-Default: 'color'\
-<br />
+Type: 'icon' | 'color'\
+Default: 'color'
+
 `containerStyles`\
 The styles of the radio button container.\
 Type: `StyleProp<ViewStyle>`\
@@ -200,14 +233,14 @@ import {Switch} from 'm-react-native-form-fields'
 
 `label`\
 The label of the radio button.\
-Type: string;\
-Default: Switch\
-<br />
+Type: `string`\
+Default: Switch
+
 `labelPosition`\
 The positon of the label.\
 Type: 'leading' | 'trailing'\
-default: "leading"\
-<br />
+default: "leading"
+
 `containerStyles`\
 The styles of the switch container.\
 Type: `StyleProp<ViewStyle>`\

@@ -47,7 +47,7 @@ const TextInput: React.FC<TextInputProps> = ({
   textStyles,
   focusColor = DefaultAppColors.lightGrayText,
   errorState = false,
-  errorText = "",
+  errorText = "error",
   ...rest
 }) => {
   const [isFocused, setIsFocused] = useState(false);

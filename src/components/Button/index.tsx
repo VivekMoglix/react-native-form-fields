@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   ActivityIndicator,
   Text,
@@ -15,13 +15,13 @@ import Dimension from "../../themes/dimensions";
 export interface ButtonProps extends NativeTouchableProps {
   label?: string;
   withLoader?: boolean;
+  labelFontSize?: "font12" | "font14";
   variant?: "outlined" | "filled";
   size?: "small" | "full";
   loaderSize?: "small" | "large";
   isLoading?: boolean;
   textStyles: StyleProp<TextStyle>;
   loaderPosition?: "leading" | "trailing";
-  backgroundColor?: string;
   loaderColor?: string;
   leading?:
     | React.ReactNode
@@ -33,25 +33,35 @@ export interface ButtonProps extends NativeTouchableProps {
     | null;
   buttonStyle?: StyleProp<ViewStyle>;
   isLabelUppercase?: boolean;
+  theme?: "light-red" | "dark-red" | "black-white";
 }
 
 const Button: React.FC<ButtonProps> = ({
   label = "Button",
   withLoader = false,
+  labelFontSize = "font14",
   variant = "filled",
-  size = "small",
+  size = "full",
   loaderSize = "small",
   isLoading,
   textStyles,
   loaderPosition = "leading",
-  backgroundColor = DefaultAppColors.RedThemeColor,
   loaderColor = variant === "filled" ? "white" : "black",
   leading,
   trailing,
   buttonStyle,
   isLabelUppercase = false,
+  theme = "dark-red",
   ...rest
 }) => {
+  const [textWidth, setTextWidth] = useState(0);
+  const [buttonWidth, setButtonWidth] = useState(0);
+
+  const calculateLoaderPosition = (buttonWidth: number, textWidth: number) => {
+    const position = ((buttonWidth - textWidth) * 3) / 8;
+    return position;
+  };
+
   const leadingNode =
     typeof leading === "function"
       ? leading({ color: "#f00", size: 24 })
@@ -76,54 +86,94 @@ const Button: React.FC<ButtonProps> = ({
           borderWidth: variant === "outlined" ? 1 : 0,
           padding: 8,
           flexDirection: "row",
-          borderRadius: 6,
+          borderRadius: 4,
           backgroundColor:
-            variant === "filled" ? backgroundColor : "transparent",
+            variant === "filled"
+              ? theme === "dark-red"
+                ? DefaultAppColors.RedThemeColor
+                : theme === "light-red"
+                ? DefaultAppColors.LightRedThemeColor
+                : DefaultAppColors.PrimaryTextColor
+              : "transparent",
         },
         buttonStyle,
       ]}
     >
-      {loaderPosition === "leading" && withLoader ? (
-        isLoading ? (
-          <ActivityIndicator
-            style={{
-              position: "absolute",
-              left: size === "small" ? 2 : 10,
-            }}
-            size={loaderSize}
-            color={loaderColor}
-          />
-        ) : null
-      ) : null}
       {leadingNode && <View>{leadingNode}</View>}
-      <Text
-        style={[
-          {
-            justifyContent: "center",
-            color: variant === "filled" ? "white" : "black",
-            fontSize: Dimension.font14,
-            fontFamily: Dimension.CustomBoldFont,
-          },
-          textStyles,
-        ]}
+      <View
+        style={{
+          flexDirection: "row",
+          position: "relative",
+          alignItems: "center",
+          width: "100%",
+          justifyContent: "center",
+        }}
+        onLayout={(event) => {
+          const { width } = event.nativeEvent.layout;
+          setButtonWidth(width);
+        }}
       >
-        {isLabelUppercase ? label.toUpperCase() : label}
-      </Text>
+        {loaderPosition === "leading" && withLoader ? (
+          isLoading ? (
+            <ActivityIndicator
+              style={{
+                position: "absolute",
+                left:
+                  size === "small"
+                    ? 2
+                    : calculateLoaderPosition(buttonWidth, textWidth),
+                alignSelf: "center",
+              }}
+              size={loaderSize}
+              color={loaderColor}
+            />
+          ) : null
+        ) : null}
+        <Text
+          onLayout={(event) => {
+            const { width } = event.nativeEvent.layout;
+            setTextWidth(width);
+          }}
+          style={[
+            {
+              justifyContent: "center",
+              color:
+                variant === "filled"
+                  ? theme === "light-red"
+                    ? DefaultAppColors.RedThemeColor
+                    : DefaultAppColors.white
+                  : "black",
+              fontSize:
+                labelFontSize === "font12"
+                  ? Dimension.font12
+                  : Dimension.font14,
+              fontFamily: Dimension.CustomBoldFont,
+            },
+            textStyles,
+          ]}
+        >
+          {isLabelUppercase ? label.toUpperCase() : label}
+        </Text>
+        {loaderPosition === "trailing" && withLoader ? (
+          isLoading ? (
+            <ActivityIndicator
+              style={{
+                position: "absolute",
+                right:
+                  size === "small"
+                    ? 2
+                    : calculateLoaderPosition(buttonWidth, textWidth),
+                alignSelf: "center",
+              }}
+              size={loaderSize}
+              color={loaderColor}
+            />
+          ) : null
+        ) : null}
+      </View>
       {trailingNode && (
         <View style={{ marginLeft: "auto" }}>{trailingNode}</View>
       )}
-      {loaderPosition === "trailing" && withLoader ? (
-        isLoading ? (
-          <ActivityIndicator
-            style={{
-              position: "absolute",
-              right: size === "small" ? 2 : 10,
-            }}
-            size={loaderSize}
-            color={loaderColor}
-          />
-        ) : null
-      ) : null}
     </NativeTouchable>
   );
 };
