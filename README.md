@@ -27,58 +27,58 @@ import {TextInput} from 'm-react-native-form-fields'
 
 ### Props
 
-`label`\
+<b>`label`</b>\
 The label to display.\
 Type: `string`\
-Default: 'label'\
+Default: 'label'
 
-`withLabel`\
+<b>`withLabel`</b>\
 Hide/show the label\
 Type: `boolean`\
-Default: true\
+Default: true
 
-`variant`\
+<b>`variant`</b> \
 The variant to use.\
 Type: `"standard" | "outlined"`\
-Default: "outlined"\
+Default: "outlined"
 
-`leading`\
+<b>`leading`</b>\
 Element placed before the text input.\
 Type: React.ReactNode | function\
 Optional: Yes\
 Example: `leading = {<Icon name="check" color={'red'} size={18} />}` or `leading={props => {return <Icon name="eye" {...props} />}}`
 
-`trailing`\
+<b>`trailing`</b>\
 Element placed before the text input.\
 Type: React.ReactNode | function\
 Optional: Yes\
 Example: `trailing = {<Icon name="check" color={'red'} size={18} />}` or `trailing={props => {return <Icon name="eye" {...props} />}}`
 
-`labelStyles`\
+<b>`labelStyles`</b>\
 Style to give the label.\
 Type: `StyleProp<TextStyles>`\
 optional: Yes\
 default = {}\
 
-`containerStyles`\
+<b>`containerStyles`</b>\
 Style to give the container of the input.\
 Type: `StyleProp<ViewStyles>`\
 optional: Yes\
 default = {}\
 
-`textStyles`
+<b>`textStyles`</b>\
 Style to give the text of the input.\
 Type: `StyleProp<TextStyles>`\
 optional: Yes\
 default = {}\
 
-`errorState`\
+<b>`errorState`</b>\
 Flag in case of error input.\
 Type: `boolean`\
 optional: Yes\
 default = {false}\
 
-`errorText`\
+<b>`errorText`</b>\
 Text to show in case of error.\
 Type: `string`\
 optional: Yes\
@@ -96,76 +96,76 @@ import {Button} from 'm-react-native-form-fields'
 
 ### Props
 
-`label`\
+<b>`label`</b>\
 The label on the button.\
 Type: `string`\
 Default: Button
 
-`variant`\
+<b>`variant`</b>\
 The variant to use.\
 Type: `"outlined" | "filled"`\
 default: "filled"
 
-`size`\
+<b>`size`</b>\
 The size to use.\
 Type: `"small" | "full"`\
 default: "full"
 
-`withLoader`\
+<b>`withLoader`</b>\
 has loader or not.\
 Type: `boolean`\
 Default: false
 
-`isLoading`\
+<b>`isLoading`</b>\
 Show/Hide loading icon.\
 Type:`boolean`\
 Default: false
 
-`loaderSize`\
+<b>`loaderSize`</b>\
 The position of the loader, `leading=before label`, `trailing=after label`.\
 Type: "leading" | "trailing"\
 Default: "leading"
 
-`loaderPosition`\
+<b>`loaderPosition`</b>\
 The size of the loader.\
 Type: "small" | "large"\
 Default: "small"
 
-`loaderColor`\
+<b>`loaderColor`</b>\
 The color of the loader.\
 Type: "String"\
 Default: "white" for filled variant | "black" for outlined variant\
 
-`leading`\
+<b>`leading`</b>\
 Element placed before the text input.\
 Type: React.ReactNode | function\
 Optional: Yes\
 Example: `leading = {<Icon name="check" color={'red'} size={18} />}` or `leading={props => {return <Icon name="eye" {...props} />}}`
 
-`trailing`\
+<b>`trailing`</b>\
 Element placed before the text input.\
 Type: React.ReactNode | function\
 Optional: Yes\
 Example: `trailing = {<Icon name="check" color={'red'} size={18} />}` or `trailing={props => {return <Icon name="eye" {...props} />}}`
 
-`buttonStyle`\
+<b>`buttonStyle`</b>\
 Style to give conatiner of button.\
 Type: `StyleProp<ViewStyle>`\
 optional: Yes\
 Default: {}
 
-`textStyles`\
+<b>`textStyles`</b>\
 Style to give the label of the button.\
 Type: `StyleProp<TextStyles>`\
 optional: Yes\
 Default: {}
 
-`isLabelUppercase`\
+<b>`isLabelUppercase`</b>\
 To convert label to uppercase.\
 Type: `boolean`\
 Default: false
 
-`theme`\
+<b>`theme`</b>\
 Changes the background color and color of the label.\
 Type: 'dark-red' | 'light-red' | 'black-white'
 Default: 'dark-red'\
@@ -183,44 +183,44 @@ import {Radio} from 'm-react-native-form-fields'
 
 ### Props
 
-`label`\
+<b>`label`</b>\
 The label of the radio button.\
 Type: `string`\
-Default: Label\
+Default: Label
 
-`labelPosition`\
+<b>`labelPosition`</b>\
 The positon of the label.\
 Type: 'top' | 'right' | 'bottom' | 'left'\
 default: "left"
 
-`isChecked`\
+<b>`isChecked`</b>\
 Value of the radio button.\
 Type: `boolean`\
 Default: false
 
-`checkedColor`\
+<b>`checkedColor`</b>\
 The color of the checked radio button.\
 Type: `string`\
 default: '#56AFF0'
 
-`uncheckedColor`\
+<b>`uncheckedColor`</b>\
 The color of the unchecked radio button.\
 Type: `string`\
 default: '#E9E9E9'
 
-`radioButtonShape`\
+<b>`radioButtonShape`</b>\
 The shape of the radio button.\
 Type: 'circle' | 'square'\
 default: 'square'
 
-`radioButtonType`\
+<b>`radioButtonType`</b>\
 The type of radio button.\
 `icon = shows check icon when isChecked={true}`\
 `color = shows filled color when isChecked={true}`\
 Type: 'icon' | 'color'\
 Default: 'color'
 
-`containerStyles`\
+<b>`containerStyles`</b>\
 The styles of the radio button container.\
 Type: `StyleProp<ViewStyle>`\
 Default: {}
@@ -231,17 +231,17 @@ Default: {}
 import {Switch} from 'm-react-native-form-fields'
 ```
 
-`label`\
+<b>`label`</b>\
 The label of the radio button.\
 Type: `string`\
 Default: Switch
 
-`labelPosition`\
+<b>`labelPosition`</b>\
 The positon of the label.\
 Type: 'leading' | 'trailing'\
 default: "leading"
 
-`containerStyles`\
+<b>`containerStyles`</b>\
 The styles of the switch container.\
 Type: `StyleProp<ViewStyle>`\
 Default: {}
