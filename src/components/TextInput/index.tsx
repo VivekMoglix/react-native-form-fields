@@ -31,6 +31,7 @@ export interface TextInputProps extends NativeInputProps {
   focusColor?: string;
   errorState?: boolean;
   errorText?: string;
+  disabled?: boolean;
 }
 
 const TextInput: React.FC<TextInputProps> = ({
@@ -47,7 +48,8 @@ const TextInput: React.FC<TextInputProps> = ({
   textStyles,
   focusColor = DefaultAppColors.lightGrayText,
   errorState = false,
-  errorText = "error",
+  errorText = "",
+  disabled = false,
   ...rest
 }) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -71,8 +73,6 @@ const TextInput: React.FC<TextInputProps> = ({
   useEffect(() => {
     if (!labelActive && value && value?.length > 0) {
       setLabelActive(true);
-    } else if (!isFocused) {
-      setLabelActive(false);
     }
   }, [value]);
 
@@ -98,7 +98,9 @@ const TextInput: React.FC<TextInputProps> = ({
             paddingLeft: 6,
             paddingVertical: 8,
             borderRadius: variant === "outlined" ? 8 : 0,
-            backgroundColor: "transparent",
+            backgroundColor: disabled
+              ? DefaultAppColors.ProductBorderColor
+              : "transparent",
             borderWidth: variant === "outlined" ? 1 : 0,
             borderBottomWidth:
               variant === "standard" ? 1 : variant === "outlined" ? 1 : 0,
@@ -155,6 +157,7 @@ const TextInput: React.FC<TextInputProps> = ({
         )}
         {leadingNode && <View>{leadingNode}</View>}
         <NativeInput
+          editable={!disabled}
           onFocus={handleFocus}
           onBlur={handleBlur}
           {...rest}
@@ -179,10 +182,9 @@ const TextInput: React.FC<TextInputProps> = ({
       {errorState && (
         <Text
           style={{
+            fontSize: Dimension.font12,
             paddingLeft: Dimension.padding6,
             color: DefaultAppColors.RedThemeColor,
-            fontSize: Dimension.font11,
-            fontFamily: Dimension.CustomRegularFont,
           }}
         >
           {errorText}

@@ -6,7 +6,7 @@ Form Fields for React Native
 
 Install package using
 
-`npm install m-react-native-form-fields` or `yarn add m-react-native-form-fields`
+`npm install mog-react-native-form-fields` or `yarn add mog-react-native-form-fields`
 
 ## Components
 
