@@ -46,6 +46,7 @@ const DefaultAppColors = {
   grayTxtAsPWA: "#7b7b7b",
   newgrayText: "#6F6F6F",
   greenBG: "#F6FFF5",
+  greenValidText: "#02C33E",
 };
 
 export default DefaultAppColors;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   ActivityIndicator,
   Text,
@@ -21,7 +21,7 @@ export interface ButtonProps extends NativeTouchableProps {
   size?: "small" | "full";
   loaderSize?: "small" | "large";
   isLoading?: boolean;
-  textStyles: StyleProp<TextStyle>;
+  labelstyle: StyleProp<TextStyle>;
   loaderPosition?: "leading" | "trailing";
   loaderColor?: string;
   leftIcon?:
@@ -49,7 +49,7 @@ const Button: React.FC<ButtonProps> = ({
   size = "full",
   loaderSize = "small",
   isLoading,
-  textStyles,
+  labelstyle,
   loaderPosition = "leading",
   disabled = false,
   disabledColor = DefaultAppColors.lightGrayText,
@@ -67,14 +67,6 @@ const Button: React.FC<ButtonProps> = ({
   buttonSize = "small",
   ...rest
 }) => {
-  const [textWidth, setTextWidth] = useState(0);
-  const [buttonWidth, setButtonWidth] = useState(0);
-
-  const calculateLoaderPosition = (buttonWidth: number, textWidth: number) => {
-    const position = ((buttonWidth - textWidth) * 3) / 8;
-    return position;
-  };
-
   const LeftIcon =
     typeof leftIcon === "function"
       ? leftIcon({ color: "#f00", size: 24 })
@@ -93,7 +85,12 @@ const Button: React.FC<ButtonProps> = ({
       disabled={disabled}
       style={[
         {
-          height: buttonSize == "small" ? 40 : buttonSize == "medium" ? 50 : 40,
+          height:
+            buttonSize == "small"
+              ? Dimension.height40
+              : buttonSize == "medium"
+              ? Dimension.height50
+              : Dimension.height40,
           alignItems: "center",
           justifyContent: "center",
           borderWidth: variant === "outlined" ? 1 : 0,
@@ -107,7 +104,7 @@ const Button: React.FC<ButtonProps> = ({
               : DefaultAppColors.PrimaryTextColor,
           paddingHorizontal: 10,
           flexDirection: "row",
-          borderRadius: 4,
+          borderRadius: 8,
           backgroundColor:
             variant == "filled"
               ? theme == "primary"
@@ -137,10 +134,6 @@ const Button: React.FC<ButtonProps> = ({
         />
       ) : withLabel ? (
         <Text
-          onLayout={(event) => {
-            const { width } = event.nativeEvent.layout;
-            setTextWidth(width);
-          }}
           style={[
             {
               justifyContent: "center",
@@ -155,7 +148,7 @@ const Button: React.FC<ButtonProps> = ({
                   : Dimension.font14,
               fontFamily: Dimension.CustomBoldFont,
             },
-            textStyles,
+            labelstyle,
           ]}
         >
           {label}
